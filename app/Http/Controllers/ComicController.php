@@ -135,7 +135,7 @@ class ComicController extends Controller
     {
         // controllo se i dati passati sono validi
         $request->validate($this->getValidationRules());    
-        
+
         //metto i dati modificati in $form_data
         $form_data = $request->all();
 
@@ -155,9 +155,15 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //7
+    //per cancellare un prodotto dal db
     public function destroy($id)
     {
-        //
+        $comic_to_delete = Comic::findOrFail($id);
+        $comic_to_delete->delete();
+
+        return redirect()->route('comics.index');
     }
 
     //5
