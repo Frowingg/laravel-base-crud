@@ -42,8 +42,8 @@ class ComicController extends Controller
     public function store(Request $request)
     {
         
-        // Prima di tutto valido i dati
-        // $request->validate($this->getValidationRules());        
+        // controllo se i dati passati sono validi
+        $request->validate($this->getValidationRules());           
 
         $form_data = $request->all();
         // dd($form_data);
@@ -110,4 +110,18 @@ class ComicController extends Controller
     {
         //
     }
+
+    protected function getValidationRules() {
+        return [
+            'title' => 'required|max:50',
+            'thumb' => 'required|max:60000',
+            'description' => 'max:60000',
+            'price' => 'required|max:10',
+            'series' => 'required|max:30',
+            'sale_date' => 'max:20',
+            'type' => 'required|max:30'
+
+        ];
+    }
+
 }
