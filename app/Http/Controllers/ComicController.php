@@ -12,14 +12,20 @@ class ComicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //1
+    // per vedere tutti i dati insieme
     public function index()
     {
+        //prendo tutti i dati dal db e li  metto nella variabile $comics
         $comics = Comic::all();
 
+        // metto i dati in $data
         $data = [
             'comics' => $comics
         ];
 
+        //mi torno nella view l'indirizzo a cui voglio andare e gli passo i dati
         return view('comics.index', $data);
     }
 
@@ -28,9 +34,14 @@ class ComicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //3
+    //per permettere all'utente di creare nuovi prodotti
     public function create()
     {
+        //mi torno nella view l'indirizzo
         return view('comics.create');
+        //la funzione create è legata alla funzione store
     }
 
     /**
@@ -39,14 +50,18 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //4
+    //per salvare i dati del prodotto aggiunto dall'utente nel db
     public function store(Request $request)
     {
         
         // controllo se i dati passati sono validi
         $request->validate($this->getValidationRules());           
 
+        //metto i dati aggiunti dall'utente nel form all'interno di $form_data
         $form_data = $request->all();
-        // dd($form_data);
+        
 
         //creo un nuovo comic
         $new_comic = new Comic();
@@ -64,14 +79,20 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //2
+    //per vedere ogni singolo prodotto con i sui dettagli (me li "scandisco" grazie all'ID)
     public function show($id)
     {
+        //nel variabile $comic metto il singolo elemento (se non lo trova mi torna errore 404)
         $comic = Comic::findOrFail($id);
 
+        // metto i dati del singolo elemento in $data
         $data = [
             'comic' => $comic
         ];
 
+        //mi torno nella view l'indirizzo a cui voglio andare e gli passo i dati
         return view('comics.show', $data);
     }
 
@@ -83,9 +104,21 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //5
+    //per permettre all'utente di modificare un prodotto
     public function edit($id)
     {
-        //
+        //prendo il prodotto specifico
+        $comic = Comic::findOrFail($id);
+
+        //la metto in $data
+        $data = [
+            'comic' => $comic
+        ];
+
+        //mi torno nella view l'indirizzo in cui voglio modificare i dati
+        return view('comics.edit', $data);
     }
 
     /**
@@ -95,9 +128,25 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //6
+    //edit mando i dati ad update che aggiorna il db
     public function update(Request $request, $id)
     {
-        //
+        // controllo se i dati passati sono validi
+        $request->validate($this->getValidationRules());    
+        
+        //metto i dati modificati in $form_data
+        $form_data = $request->all();
+
+        //mi prendo il prodotto da aggiornare attraverso il suo ID
+        $comic_to_update = Comic::findOrFail($id);
+
+        //aggiorno il prodotto tramite il metodo update
+        $comic_to_update->update($form_data);
+
+        //mando l'utente alla pagina del prodotto appena aggiornato
+        return redirect()->route('comics.show', ['comic' => $comic_to_update->id]);
     }
 
     /**
@@ -111,6 +160,8 @@ class ComicController extends Controller
         //
     }
 
+    //5
+    // funzione controllo validità dati
     protected function getValidationRules() {
         return [
             'title' => 'required|max:50',
