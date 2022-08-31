@@ -43,15 +43,19 @@ class ComicController extends Controller
     {
         
         // Prima di tutto valido i dati
-        $request->validate($this->getValidationRules());        
+        // $request->validate($this->getValidationRules());        
 
         $form_data = $request->all();
-        
-        $new_pasta = new Pasta();
-        $new_pasta->fill($form_data);
-        $new_pasta->save();
- 
-        return redirect()->route('pastas.show', ['pasta' => $new_pasta->id]);
+        // dd($form_data);
+
+        //creo un nuovo comic
+        $new_comic = new Comic();
+        //popolo le colonne con il fill (non essendo dati sensibile [aggiungo nel model le collonne che possono essere popolate con il fill])
+        $new_comic->fill($form_data);
+        //salvo il nuovo comic
+        $new_comic->save();
+        //indirizzo l'utente alla show del nuovo comic creato
+        return redirect()->route('comics.show', ['comic' => $new_comic->id]);
     }
 
     /**

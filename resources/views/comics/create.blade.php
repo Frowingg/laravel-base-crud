@@ -23,7 +23,7 @@
         <br>
 
         <div>
-            <label for="title">Title</label>
+            <label for="title">Titolo</label>
             <input type="text" id="title" name="title" value="{{ old('title') }}">
         </div>
         <br>
@@ -43,6 +43,12 @@
         <div>
             <label for="sale_date">Data</label>
             <input type="text" id="sale_date" name="sale_date" value="{{ old('sale_date') }}">
+        </div>
+        <br>
+
+        <div>
+            <label for="series">Serie</label>
+            <input type="text" id="series" name="series" value="{{ old('series') }}">
         </div>
         <br>
 
