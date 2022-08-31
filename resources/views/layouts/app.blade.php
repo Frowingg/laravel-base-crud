@@ -13,13 +13,16 @@
                 <a href=" {{ route('home') }} ">Home</a>
             </li>
             <li>
-                <a href=" {{ route('comics.index') }} "> Comics</a>
+                <a href="{{ route('comics.index') }}">Comics</a>
+            </li>
+            <li>
+                <a href="{{ route('comics.create') }}">Create Comics</a>
             </li>
         </ul>
     </header>
     
     <main>
-        @yield('main-content')
+        @yield('main_content')
     </main>
 </body>
 </html>

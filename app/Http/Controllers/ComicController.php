@@ -30,7 +30,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -41,7 +41,17 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        // Prima di tutto valido i dati
+        $request->validate($this->getValidationRules());        
+
+        $form_data = $request->all();
+        
+        $new_pasta = new Pasta();
+        $new_pasta->fill($form_data);
+        $new_pasta->save();
+ 
+        return redirect()->route('pastas.show', ['pasta' => $new_pasta->id]);
     }
 
     /**
@@ -52,8 +62,16 @@ class ComicController extends Controller
      */
     public function show($id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        $data = [
+            'comic' => $comic
+        ];
+
+        return view('comics.show', $data);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

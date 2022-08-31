@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
-@section('main-content')
+@section('main_content')
     <h1>I nostri Comics</h1>
 
     @foreach ($comics as $comic)
-        <div>
+        <div style="border:1px solid red">
             <div>Nome: {{ $comic->title }}</div>
-            <div>Nome: {{ $comic->description }}</div>
-            
+            <br>
+            <div>Descrizione: {{ $comic['description'] }}</div>
+            <div>
+                <a href="{{ route('comics.show', ['comic' => $comic->id]) }}">Scopri di più</a>
+            </div>
         </div>
         <br>
     @endforeach
