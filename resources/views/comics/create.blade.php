@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+{{-- Sezione in cui creo un nuovo prodotto --}}
 @section('main_content')
     <h1>Crea un nuovo Comic</h1>
 
+    {{-- If con il quale mi torno errori se non metto valori adatti --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,7 +15,14 @@
         </div>
     @endif
 
+    {{-- Form con cui mi creo il nuovo prodotto con tutte le sue varie info --}}
+    {{-- Nella value lascia l'ultimo valore scritto anche se c'è un errore (così
+         da non dovere obbligare l'utente a riscrive tutto) --}}
+
+    {{-- Method POST -> per la creazione di nuovi ogetti --}}
     <form action="{{ route('comics.store') }}" method="post">
+
+        {{-- @csrf -> per controllare che le informzaione arrivano da dentro il sito --}}
         @csrf
 
         <div>

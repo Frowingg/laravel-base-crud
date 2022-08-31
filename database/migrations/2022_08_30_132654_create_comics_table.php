@@ -13,6 +13,7 @@ class CreateComicsTable extends Migration
      */
     public function up()
     {
+        // mi creo il db specificando i valori che deve avere ogni prodotto
         Schema::create('comics', function (Blueprint $table) {
             $table->id();
             $table->text('title');

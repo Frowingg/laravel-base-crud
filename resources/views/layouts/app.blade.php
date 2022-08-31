@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+
+    {{-- Layout di base da riutillzare per ogni page del sito --}}
     <header>
         <ul>
             <li>
@@ -21,6 +23,7 @@
         </ul>
     </header>
     
+    {{-- Con lo yield mi occupo lo spazio utilizzato dalle altre pagine nel main_content --}}
     <main>
         @yield('main_content')
     </main>

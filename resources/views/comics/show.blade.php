@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+{{-- Sezione in cui mostro tutte le informazione di un prodotto specifico --}}
 @section('main_content')
 
     <img src="{{ $comic->thumb }}" alt="{{ $comic->title }}">

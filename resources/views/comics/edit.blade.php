@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+{{-- Sezione in cui modifico un prodotto già esistente --}}
 @section('main_content')
     <h1>Modifica Comic</h1>
 
+    {{-- If con il quale mi torno errori se non metto valori adatti --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,8 +15,13 @@
         </div>
     @endif
 
+    {{-- Method POST -> per la creazione di nuovi ogetti --}}
     <form action="{{ route('comics.update', ['comic' => $comic->id]) }}" method="post">
+        
+        {{-- @csrf -> per controllare che le informzaione arrivano da dentro il sito --}}
         @csrf
+
+        {{-- Method PUT -> per l'aggiornamento dei dati esistenti --}}
         @method('PUT')
 
         <div>

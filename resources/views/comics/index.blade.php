@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+{{-- Sezione in cui mostro tutti i prodotti in lista (ma non tutte le info) --}}
 @section('main_content')
     <h1>I nostri Comics</h1>
 

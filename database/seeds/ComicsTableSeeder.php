@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+
 use App\Comic;
 
 class ComicsTableSeeder extends Seeder
@@ -12,6 +13,7 @@ class ComicsTableSeeder extends Seeder
      */
     public function run()
     {
+        // attraverso il seed mi popolo il db iterando
         $comics_array = config('comic');
         foreach($comics_array as $comic) {
             $new_comic = new Comic();
