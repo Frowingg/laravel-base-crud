@@ -16,7 +16,7 @@
     @endif
 
     {{-- Method POST -> per la creazione di nuovi ogetti --}}
-    <form action="{{ route('comics.update', ['comic' => $comic->id]) }}" method="post">
+    <form action="{{ route('comics.update', $comic->id) }}" method="post">
         
         {{-- @csrf -> per controllare che le informzaione arrivano da dentro il sito --}}
         @csrf

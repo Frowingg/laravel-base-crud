@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 // La route della homepage
 Route::get('/', 'HomeController@index')->name('home');
 
-// La route attraverso la quale uso le risorse da ComicController
+// La route attraverso la quale uso le risorse da ComicController 
 Route::resource('comics', 'ComicController');

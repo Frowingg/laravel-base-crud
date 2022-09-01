@@ -4,6 +4,13 @@
 @section('main_content')
     <h1>I nostri Comics</h1>
 
+    {{-- se è stato eliminato un elemento (logica in ComicController) mi torno l'alert che me lo conferma --}}
+    @if ($deleted === 'yes')
+        <div class="alert alert-success" role="alert">
+            Fumetto eliminato con successo
+        </div>
+    @endif
+
     @foreach ($comics as $comic)
         <div style="border:1px solid red">
             <div>Nome: {{ $comic->title }}</div>

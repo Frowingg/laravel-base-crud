@@ -15,18 +15,28 @@ class ComicController extends Controller
 
     //1
     // per vedere tutti i dati insieme
-    public function index()
+    public function index(Request $request)
     {
         //prendo tutti i dati dal db e li  metto nella variabile $comics
         $comics = Comic::all();
 
+        //per avere la conferma dell'eliminizione
+        //prendo il dato passato
+        $page_data = $request->all();
+        //se deleted è settato allora mi torno 'yes' sennò mi torno null
+        $deleted = isset($page_data['deleted']) ? $page_data['deleted'] : null;
+
         // metto i dati in $data
-        $data = [
-            'comics' => $comics
-        ];
+        // $data = [
+        //     'comics' => $comics
+        // ];
 
         //mi torno nella view l'indirizzo a cui voglio andare e gli passo i dati
-        return view('comics.index', $data);
+        // return view('comics.index', $data);
+
+        //usando compact che mi crea l'array
+        return view('comics.index', compact('comics'));
+
     }
 
     /**
@@ -107,18 +117,22 @@ class ComicController extends Controller
 
     //5
     //per permettre all'utente di modificare un prodotto
-    public function edit($id)
+    // public function edit($id) -> uso findOrfail
+    // public function edit(Comic $comic) non serve findOrFail
+    public function edit(Comic $comic) 
     {
         //prendo il prodotto specifico
-        $comic = Comic::findOrFail($id);
+        // $comic = Comic::findOrFail($id);
 
         //la metto in $data
-        $data = [
-            'comic' => $comic
-        ];
+        // $data = [
+        //     'comic' => $comic
+        // ];
 
         //mi torno nella view l'indirizzo in cui voglio modificare i dati
-        return view('comics.edit', $data);
+        // return view('comics.edit', $data);
+        return view('comics.edit', compact('comic'));
+
     }
 
     /**
@@ -130,8 +144,8 @@ class ComicController extends Controller
      */
 
     //6
-    //edit mando i dati ad update che aggiorna il db
-    public function update(Request $request, $id)
+    //edit manda i dati ad update che aggiorna il db
+    public function update(Request $request, Comic $comic)
     {
         // controllo se i dati passati sono validi
         $request->validate($this->getValidationRules());    
@@ -140,15 +154,17 @@ class ComicController extends Controller
         $form_data = $request->all();
 
         //mi prendo il prodotto da aggiornare attraverso il suo ID
-        $comic_to_update = Comic::findOrFail($id);
+        // $comic_to_update = Comic::findOrFail($id);
 
         //aggiorno il prodotto tramite il metodo update
-        $comic_to_update->update($form_data);
+        // $comic_to_update->update($form_data);
+
+        // laravel si occupa del find da sola scrivendo
+        $comic->update($form_data);
 
         //mando l'utente alla pagina del prodotto appena aggiornato
-        return redirect()->route('comics.show', ['comic' => $comic_to_update->id]);
+        return redirect()->route('comics.show', $comic->id);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -163,7 +179,7 @@ class ComicController extends Controller
         $comic_to_delete = Comic::findOrFail($id);
         $comic_to_delete->delete();
 
-        return redirect()->route('comics.index');
+        return redirect()->route('comics.index', ['deleted' => 'yes']);
     }
 
     //5
