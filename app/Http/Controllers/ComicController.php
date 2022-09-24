@@ -27,15 +27,13 @@ class ComicController extends Controller
         $deleted = isset($page_data['deleted']) ? $page_data['deleted'] : null;
 
         // metto i dati in $data
-        // $data = [
-        //     'comics' => $comics
-        // ];
-
-        //mi torno nella view l'indirizzo a cui voglio andare e gli passo i dati
-        // return view('comics.index', $data);
+        $data = [
+            'comics' => $comics,
+            'deleted' => $deleted
+        ];
 
         //usando compact che mi crea l'array
-        return view('comics.index', compact('comics'));
+        return view('comics.index', $data);
 
     }
 
